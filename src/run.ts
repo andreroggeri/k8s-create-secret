@@ -5,6 +5,7 @@ import {
    V1ObjectMeta,
    V1Secret
 } from '@kubernetes/client-node'
+import { inspect } from 'util'
 
 export function checkClusterContext() {
    if (!process.env['KUBECONFIG']) {
@@ -182,7 +183,7 @@ async function run() {
    try {
       await api.createNamespacedSecret(namespace, secret)
    } catch (err) {
-      core.info(JSON.stringify(err))
+      core.info(JSON.stringify(inspect(err)))
       core.setFailed(err.message)
    }
 }
